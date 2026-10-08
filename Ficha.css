@@ -314,17 +314,12 @@ button {
    ETAPAS
 ============================================================ */
 
-.step-panel {
+.editor-section {
     display: block;
 
     max-width: 900px;
 
-    margin: 0 auto;
-}
-
-
-.step-panel.active {
-    display: block;
+    margin: 0 auto 18px;
 }
 
 
@@ -982,19 +977,6 @@ label textarea:focus {
 }
 
 
-/* ============================================================
-   NAVEGAÇÃO
-============================================================ */
-
-.bottom-nav {
-    display: flex;
-
-    justify-content: space-between;
-
-    max-width: 900px;
-
-    margin: 14px auto 0;
-}
 
 
 /* ============================================================
@@ -1383,6 +1365,253 @@ label textarea:focus {
 
 
 /* ============================================================
+   CARREIRAS
+============================================================ */
+
+.career-card-section {
+    overflow: hidden;
+}
+
+
+.career-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+}
+
+
+.career-card {
+    min-height: 190px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    border: 1px solid var(--line);
+    border-radius: 9px;
+    background: #121416;
+    color: #fff;
+    text-align: left;
+    cursor: pointer;
+    transition: .15s ease;
+}
+
+
+.career-card:hover,
+.career-card:focus-visible {
+    border-color: #8a8d90;
+    background: #202326;
+    color: #fff;
+    transform: translateY(-1px);
+}
+
+
+.career-card:hover *,
+.career-card:focus-visible * {
+    color: #fff;
+}
+
+
+.career-card.selected {
+    border-color: var(--orange);
+    background: rgba(255,100,23,.075);
+    color: #fff;
+    box-shadow: 0 0 0 1px rgba(255,100,23,.16), 0 8px 24px rgba(0,0,0,.2);
+}
+
+
+.career-card-check {
+    position: absolute;
+    opacity: 0;
+    color: #fff;
+}
+
+
+.career-card-icon {
+    width: 36px;
+    height: 36px;
+    display: grid;
+    place-items: center;
+    border: 1px solid rgba(255,255,255,.22);
+    border-radius: 9px;
+    color: #fff;
+    background: rgba(255,255,255,.04);
+    font-size: 20px;
+    filter: grayscale(1) brightness(2);
+}
+
+
+.career-card-content {
+    width: 100%;
+}
+
+
+.career-card-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+
+.career-card-title strong {
+    color: #fff;
+    font-family: Georgia, serif;
+    font-size: 16px;
+    line-height: 1.2;
+}
+
+
+.career-card p {
+    margin: 8px 0;
+    color: #bfc2c4;
+    font-size: 11px;
+    line-height: 1.45;
+}
+
+
+.career-card:hover p,
+.career-card:focus-visible p {
+    color: #fff;
+}
+
+
+.career-tag {
+    color: #fff;
+    border: 1px solid rgba(255,255,255,.22);
+    border-radius: 999px;
+    padding: 3px 7px;
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: .05em;
+}
+
+
+.career-card-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    color: #bfc2c4;
+    font-size: 10px;
+    line-height: 1.4;
+}
+
+
+.career-card-meta b {
+    color: #fff;
+}
+
+
+/* ============================================================
+   EQUIPAMENTO — SELETOR POR GRUPOS
+============================================================ */
+.career-equipment-section {
+    margin-top: 18px;
+}
+
+.section-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.career-equipment-picker {
+    position: relative;
+}
+
+.career-equipment-groups {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.career-equipment-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 12px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: rgba(255,255,255,.025);
+}
+
+.career-equipment-group-title {
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    opacity: .7;
+}
+
+.career-equipment-select {
+    width: 100%;
+    min-height: 46px;
+    padding: 10px 12px;
+    border: 1px solid rgba(255,255,255,.14);
+    border-radius: 9px;
+    background: #171717;
+    color: #fff;
+    font: inherit;
+    cursor: pointer;
+    outline: none;
+}
+
+.career-equipment-select:hover,
+.career-equipment-select:focus {
+    border-color: var(--orange);
+    box-shadow: 0 0 0 2px rgba(255,255,255,.05);
+}
+
+.career-equipment-select option {
+    background: #171717;
+    color: #fff;
+}
+
+.career-equipment-group.unavailable {
+    opacity: .7;
+}
+
+.career-equipment-unavailable {
+    padding: 10px 12px;
+    border: 1px dashed rgba(255,255,255,.15);
+    border-radius: 9px;
+    color: rgba(255,255,255,.58);
+    font-size: 13px;
+}
+
+.career-equipment-picker.empty {
+    display: block;
+}
+
+.career-equipment-empty {
+    padding: 16px;
+    border: 1px dashed rgba(255,255,255,.16);
+    border-radius: 12px;
+    text-align: center;
+    color: rgba(255,255,255,.62);
+}
+
+#selectedEquipmentInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+#selectedEquipmentInfo small {
+    color: rgba(255,255,255,.58);
+}
+
+@media (max-width: 700px) {
+    .career-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+/* ============================================================
    RESPONSIVO
 ============================================================ */
 
@@ -1444,6 +1673,7 @@ label textarea:focus {
     .form-grid.three,
     .skills-grid,
     .talent-grid,
+    .career-grid,
     .review-grid {
         grid-template-columns: 1fr;
     }
@@ -1462,137 +1692,67 @@ label textarea:focus {
     }
 
 }
-
 /* ============================================================
-   SELEÇÃO DE CARREIRA
+   EQUIPAMENTO INICIAL DA CARREIRA
 ============================================================ */
-
-.career-selection-card {
-    min-height: 500px;
-}
-
-.career-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 14px;
-    margin-top: 22px;
-}
-
-.career-card {
-    position: relative;
-    display: flex;
-    align-items: flex-start;
-    gap: 14px;
-    width: 100%;
-    min-height: 132px;
-    padding: 18px;
-    border: 1px solid #30343a;
-    border-top: 2px solid #34383d;
-    border-radius: 12px;
-    background: linear-gradient(145deg, #17191b, #111315);
-    color: inherit;
-    text-align: left;
-    cursor: pointer;
-    transition: border-color .18s ease, transform .18s ease, background .18s ease, box-shadow .18s ease;
-}
-
-.career-card:hover {
-    border-color: #f26b21;
-    transform: translateY(-2px);
-}
-
-.career-card.selected {
-    border-color: #f26b21;
-    border-top-color: #ff7b2b;
-    box-shadow: 0 0 0 1px rgba(242, 107, 33, .22);
-    background: linear-gradient(145deg, #211915, #151311);
-}
-
-.career-card-icon {
-    flex: 0 0 42px;
-    width: 42px;
-    height: 42px;
-    display: grid;
-    place-items: center;
-    border: 1px solid #3b3f44;
-    border-radius: 9px;
-    color: #f26b21;
-    font-size: 18px;
-}
-
-.career-card-body {
-    min-width: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 7px;
-}
-
-.career-card-body strong {
-    font-size: 17px;
-    line-height: 1.1;
-    color: #f2f2f2;
-}
-
-.career-card-body small {
-    color: #c5c5c5;
-    font-size: 12px;
-}
-
-.career-card-skills {
-    color: #a9adb2;
-    font-size: 12px;
-    line-height: 1.45;
-}
-
-.career-card-talent {
-    color: #777d84;
-    font-size: 11px;
-}
-
-.career-card-check {
-    position: absolute;
-    top: 14px;
-    right: 14px;
-    width: 24px;
-    height: 24px;
-    display: grid;
-    place-items: center;
-    border-radius: 50%;
-    color: #fff;
-    background: #f26b21;
-    font-weight: 700;
-}
-
-.career-selected-info {
+.career-equipment-section {
     margin-top: 18px;
 }
 
-@media (max-width: 800px) {
-    .career-grid {
-        grid-template-columns: 1fr;
-    }
+.section-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+    font-weight: 700;
 }
 
-
-/* ============================================================
-   MODO SCROLL CONTÍNUO
-============================================================ */
-
-.steps {
-    display: none;
+.career-equipment-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
 }
 
-.step-panel {
-    display: block !important;
-    margin-bottom: 24px;
+.career-equipment-grid.empty {
+    display: block;
+    padding: 18px;
+    text-align: center;
+    border: 1px dashed rgba(255,255,255,.18);
+    border-radius: 12px;
 }
 
-.bottom-nav {
-    display: none;
+.career-equipment-card {
+    position: relative;
+    min-height: 58px;
+    padding: 14px 14px 14px 42px;
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 12px;
+    background: rgba(255,255,255,.035);
+    color: inherit;
+    text-align: left;
+    cursor: pointer;
+}
+
+.career-equipment-card.selected {
+    border-color: currentColor;
+    background: rgba(255,255,255,.09);
+}
+
+.career-equipment-check {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: .35;
+}
+
+.career-equipment-card.selected .career-equipment-check {
+    opacity: 1;
 }
 
 @media (max-width: 700px) {
-    .step-panel {
-        margin-bottom: 18px;
+    .career-equipment-grid {
+        grid-template-columns: 1fr;
     }
 }

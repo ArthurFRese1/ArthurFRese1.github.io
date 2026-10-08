@@ -43,11 +43,11 @@
 
             <div>
                 <span class="orange-label">
-                    CRIADOR DE FICHA
+                    PREENCHIMENTO DA FICHA
                 </span>
 
-                <h2 id="stepTitle">
-                    Ficha ALIEN RPG
+                <h2>
+                    Criador de personagem
                 </h2>
             </div>
 
@@ -70,7 +70,7 @@
              ETAPA 1
         ====================================================== -->
 
-        <div class="step-panel active" data-panel="1">
+        <div class="editor-section">
 
             <section class="card">
 
@@ -299,7 +299,7 @@
              ETAPA 2
         ====================================================== -->
 
-        <div class="step-panel" data-panel="2">
+        <div class="editor-section">
 
     <section class="card career-selection-card">
 
@@ -325,7 +325,7 @@
      ETAPA 3 — ATRIBUTOS
 ====================================================== -->
 
-<div class="step-panel" data-panel="3">
+<div class="editor-section">
 
             <section class="card">
 
@@ -410,7 +410,7 @@
              ETAPA 4 — HABILIDADES
         ====================================================== -->
 
-        <div class="step-panel" data-panel="4">
+        <div class="editor-section">
 
             <section class="card">
 
@@ -467,7 +467,7 @@
              ETAPA 5 — TALENTO
         ====================================================== -->
 
-        <div class="step-panel" data-panel="5">
+        <div class="editor-section">
 
             <section class="card">
 
@@ -504,7 +504,7 @@
              ETAPA 6 — COMPLEMENTOS
         ====================================================== -->
 
-        <div class="step-panel" data-panel="6">
+        <div class="editor-section">
 
             <section class="card">
 
@@ -552,17 +552,23 @@
                     </label>
 
 
-                    <label>
-                        Equipamento
-                        <span class="optional">opcional</span>
+                    <div class="career-equipment-section">
+                        <div class="section-label">
+                            Equipamento inicial da carreira
+                            <span class="optional">1 item por opção</span>
+                        </div>
 
-                        <textarea
-                            id="gear"
-                            rows="8"
-                            placeholder="Um item por linha..."
-                        ></textarea>
+                        <div id="careerEquipment" class="career-equipment-picker"></div>
 
-                    </label>
+                        <div id="selectedEquipmentInfo" class="info-box">
+                            Escolha uma carreira para ver as opções de equipamento.
+                        </div>
+                    </div>
+
+                    <textarea
+                        id="gear"
+                        hidden
+                    ></textarea>
 
 
                     <label>
@@ -613,7 +619,7 @@
              ETAPA 7 — REVISÃO
         ====================================================== -->
 
-        <div class="step-panel" data-panel="7">
+        <div class="editor-section">
 
             <section class="card review-card">
 
@@ -894,11 +900,11 @@
 
 
         <button
-            id="btnVisualizarLateral"
+            id="btnExportarLateral"
             class="export-btn lateral-export"
             type="button"
         >
-            ◉ Visualizar ficha
+            ↓ Baixar PDF editável
         </button>
 
     </aside>

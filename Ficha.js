@@ -175,6 +175,86 @@ const CAREERS = {
 
 };
 
+/* ============================================================
+   EQUIPAMENTO INICIAL POR CARREIRA
+
+   A estrutura é sempre uma lista de grupos.
+   Cada grupo representa uma "opção" da carreira e o personagem
+   escolhe exatamente 1 item daquele grupo.
+
+   A quantidade de grupos é dinâmica: 4 grupos = 4 escolhas,
+   5 grupos = 5 escolhas, 6 grupos = 6 escolhas, etc.
+
+   Alguns itens do livro não são disponibilizados como seleção
+   automática nesta interface. Eles aparecem como opção indisponível
+   para manter a quantidade e a estrutura dos grupos.
+============================================================ */
+const CAREER_EQUIPMENT = {
+
+    "Fuzileiro Colonial": [
+        [],
+        ["Traje de Pressão IRC MK.35", "Armadura Pessoal M3"],
+        ["Sinalizador", "Baralho"],
+        []
+    ],
+
+    "Xerife Colonial": [
+        [],
+        ["Binóculos", "Lanterna de feixe intenso"],
+        ["Kit de primeiros socorros pessoal", "Bastão de choque"],
+        ["Rádio de mão"]
+    ],
+
+    "Agente da Companhia": [
+        ["Maleta de couro", "Maleta cromada"],
+        ["Caneta banhada a ouro", "Relógio Rolex"],
+        ["Cartão transmissor de dados com nível de autorização corporativa"],
+        []
+    ],
+
+    "Criança": [
+        ["Linha de pesca"],
+        ["Ímã", "Carro de controle remoto a rádio"],
+        ["Ioiô", "Jogo eletrônico portátil"],
+        ["Localizador pessoal", "Canetinhas"]
+    ],
+
+    "Médico": [
+        ["Kit cirúrgico", "Traje de Compressão IRC MK.50"],
+        [],
+        ["Kit de primeiros socorros pessoal"],
+        ["Relógio Samani Série E", "Rádio de mão"]
+    ],
+
+    "Oficial": [
+        [],
+        ["Relógio Samani Série E", "Binóculos"],
+        ["Rastreador de movimento M314", "Traje de Compressão IRC MK.50"],
+        ["DAD-P Seegson", "Receptor-Transmissor IAI"]
+    ],
+
+    "Piloto": [
+        ["Terminal por satélite TS-PRP"],
+        ["Rádio de mão", "D6 sinalizadores"],
+        ["Plugue de manutenção", "DAD-P Seegson"],
+        ["Dispositivo de diagnóstico de sistema Seegson", "Traje de compressão IRC MK.50"]
+    ],
+
+    "Operário": [
+        [],
+        ["D6 doses de Hidratação", "Ferramenta Multiuso"],
+        ["Traje de Compressão IRC MK.50"],
+        ["Lanterna de feixe intenso", "Gravador de fita magnética Seegson Série C"]
+    ],
+
+    "Cientista": [
+        ["Câmera de vídeo digital", "Rádio de mão"],
+        ["DAD-P Seegson", "Neuro visor"],
+        ["Dispositivo de Diagnóstico de Sistema Seegson", "Transmissor de Dados Pessoais"],
+        ["Rastreador de movimento M314", "Kit de primeiros socorros pessoal"]
+    ]
+};
+
 
 
 /* ============================================================
@@ -286,7 +366,6 @@ const STORAGE_KEY = "alienRpgCriadorV01";
 
 const state = {
 
-    step: 1,
 
     data: {
 
@@ -317,6 +396,7 @@ const state = {
         emotionalItem: "",
 
         gear: "",
+        selectedEquipment: [],
         weapons: "",
 
         armor: "",
@@ -519,93 +599,142 @@ function renderCareers() {
     container.innerHTML = "";
 
 
-    const icons = [
-        "⚔", "★", "◆", "●", "✚",
-        "▣", "✈", "⚙", "⌕"
-    ];
+    const descriptions = {
+
+        "Fuzileiro Colonial":
+            "Soldado colonial treinado para combate, operações militares e sobrevivência em situações extremas.",
+
+        "Xerife Colonial":
+            "Autoridade colonial responsável por investigação, segurança e manutenção da ordem.",
+
+        "Agente da Companhia":
+            "Representante da Companhia, especializado em tecnologia, observação e manipulação.",
+
+        "Criança":
+            "Personagem jovem que depende de mobilidade, percepção e capacidade de passar despercebido.",
+
+        "Médico":
+            "Profissional de saúde preparado para manter a tripulação viva em condições difíceis.",
+
+        "Oficial":
+            "Líder responsável por comando, negociação e tomada de decisões sob pressão.",
+
+        "Piloto":
+            "Especialista em pilotagem e operação de veículos, naves e sistemas técnicos.",
+
+        "Operário":
+            "Trabalhador especializado em máquinas, esforço físico e tarefas técnicas pesadas.",
+
+        "Cientista":
+            "Pesquisador especializado em observação, tecnologia e investigação científica."
+
+    };
 
 
-    Object.entries(CAREERS).forEach(
-        ([name, career], index) => {
+    Object.entries(CAREERS).forEach(([name, career]) => {
 
-            const card =
-                document.createElement("button");
-
-
-            card.type = "button";
-
-            card.className =
-                `career-card ${
-                    state.data.career === name
-                        ? "selected"
-                        : ""
-                }`;
-
-            card.dataset.career = name;
+        const button =
+            document.createElement("button");
 
 
-            const skillNames =
-                career.skills
-                    .map(key => SKILLS[key]?.name || key)
-                    .join(" • ");
+        button.type =
+            "button";
 
 
-            card.innerHTML = `
+        button.className =
+            `career-card ${
+                state.data.career === name
+                    ? "selected"
+                    : ""
+            }`;
 
-                <div class="career-card-icon">
-                    ${icons[index] || "◆"}
-                </div>
 
-                <div class="career-card-body">
+        button.dataset.career =
+            name;
+
+
+        const skillNames =
+            career.skills
+                .map(key => SKILLS[key]?.name || key)
+                .join(" • ");
+
+
+        const mainName =
+            ATTRIBUTES[career.main]?.short ||
+            career.main;
+
+
+        const icon =
+            career.main === "forca"
+                ? "⚔"
+                : career.main === "agilidade"
+                    ? "◈"
+                    : career.main === "perspicacia"
+                        ? "⌁"
+                        : "✦";
+
+
+        button.innerHTML = `
+
+            <span class="career-card-check">
+                ✓
+            </span>
+
+            <div class="career-card-icon">
+                ${icon}
+            </div>
+
+            <div class="career-card-content">
+
+                <div class="career-card-title">
 
                     <strong>
                         ${name}
                     </strong>
 
-                    <small>
-                        Atributo principal: 
-                        ${ATTRIBUTES[career.main].name}
-                    </small>
-
-                    <div class="career-card-skills">
-                        ${skillNames}
-                    </div>
-
-                    <div class="career-card-talent">
-                        3 talentos disponíveis
-                    </div>
+                    <span class="career-tag">
+                        CARREIRA
+                    </span>
 
                 </div>
 
-                ${
-                    state.data.career === name
-                        ? '<div class="career-card-check">✓</div>'
-                        : ""
-                }
+                <p>
+                    ${descriptions[name] || "Carreira do ALIEN RPG."}
+                </p>
 
-            `;
+                <div class="career-card-meta">
+
+                    <span>
+                        Principal:
+                        <b>${mainName}</b>
+                    </span>
+
+                    <span>
+                        Habilidades:
+                        <b>${skillNames}</b>
+                    </span>
+
+                </div>
+
+            </div>
+
+        `;
 
 
-            container.appendChild(card);
+        container.appendChild(button);
 
-        }
-    );
+    });
 
 
-    const selectedInfo =
-        $("careerSelectedInfo");
-
+    const selectedInfo = $("careerSelectedInfo");
 
     if (selectedInfo) {
 
-        const career =
-            currentCareer();
+        const selectedCareer = currentCareer();
 
-
-        selectedInfo.textContent =
-            career
-                ? `${state.data.career} selecionada. Atributo principal: ${ATTRIBUTES[career.main].name}.`
-                : "Nenhuma carreira selecionada.";
+        selectedInfo.textContent = selectedCareer
+            ? `Carreira selecionada: ${state.data.career} · Atributo principal: ${ATTRIBUTES[selectedCareer.main].name}`
+            : "Nenhuma carreira selecionada.";
 
     }
 
@@ -900,6 +1029,141 @@ function renderSkills() {
 
 }
 
+
+
+/* ============================================================
+   EQUIPAMENTO
+============================================================ */
+function renderEquipment() {
+    const container = $("careerEquipment");
+    if (!container) return;
+
+    const career = currentCareer();
+    const selectedInfo = $("selectedEquipmentInfo");
+
+    if (!career) {
+        container.className = "career-equipment-picker empty";
+        container.innerHTML = `
+            <div class="career-equipment-empty">
+                Escolha uma carreira primeiro.
+            </div>
+        `;
+
+        if (selectedInfo) {
+            selectedInfo.textContent =
+                "Escolha uma carreira para ver as opções de equipamento.";
+        }
+
+        return;
+    }
+
+    const groups = CAREER_EQUIPMENT[state.data.career] || [];
+    const selectedItems = Array.isArray(state.data.selectedEquipment)
+        ? state.data.selectedEquipment
+        : [];
+
+    container.className = "career-equipment-picker";
+
+    container.innerHTML = `
+        <div class="career-equipment-groups">
+            ${groups.map((group, index) => {
+                const selected = selectedItems[index] || "";
+                const available = Array.isArray(group) ? group : [];
+
+                if (!available.length) {
+                    return `
+                        <div class="career-equipment-group unavailable">
+                            <div class="career-equipment-group-title">
+                                Opção ${index + 1}
+                            </div>
+                            <div class="career-equipment-unavailable">
+                                Esta opção não está disponível para seleção automática.
+                            </div>
+                        </div>
+                    `;
+                }
+
+                return `
+                    <label class="career-equipment-group">
+                        <span class="career-equipment-group-title">
+                            Opção ${index + 1}
+                        </span>
+
+                        <select
+                            class="career-equipment-select"
+                            data-equipment-group="${index}"
+                        >
+                            <option value="">Escolha 1 item...</option>
+                            ${available.map(item => `
+                                <option
+                                    value="${escapeHtml(item)}"
+                                    ${selected === item ? "selected" : ""}
+                                >
+                                    ${escapeHtml(item)}
+                                </option>
+                            `).join("")}
+                        </select>
+                    </label>
+                `;
+            }).join("")}
+        </div>
+    `;
+
+    const chosenCount = selectedItems.filter(Boolean).length;
+    const availableGroups = groups.filter(group => Array.isArray(group) && group.length).length;
+
+    if (selectedInfo) {
+        selectedInfo.innerHTML = `
+            <strong>Selecionados (${chosenCount}/${groups.length})</strong>
+            <span>${
+                selectedItems.filter(Boolean).length
+                    ? selectedItems.filter(Boolean).map(escapeHtml).join(" • ")
+                    : "Nenhum item selecionado."
+            }</span>
+            ${
+                availableGroups < groups.length
+                    ? `<small>${groups.length - availableGroups} opção(ões) não disponível(is) para seleção automática.</small>`
+                    : ""
+            }
+        `;
+    }
+}
+
+function escapeHtml(value) {
+    return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+}
+
+function selectEquipment(groupIndex, item) {
+    const groups = CAREER_EQUIPMENT[state.data.career] || [];
+
+    if (!groups[groupIndex]) return;
+
+    if (!Array.isArray(state.data.selectedEquipment)) {
+        state.data.selectedEquipment = [];
+    }
+
+    if (item && !groups[groupIndex].includes(item)) {
+        return;
+    }
+
+    state.data.selectedEquipment[groupIndex] = item || "";
+
+    state.data.selectedEquipment =
+        state.data.selectedEquipment.slice(0, groups.length);
+
+    state.data.gear = state.data.selectedEquipment
+        .filter(Boolean)
+        .join("\n");
+
+    renderEquipment();
+    renderPreview();
+    renderReview();
+}
 
 
 /* ============================================================
@@ -1340,31 +1604,17 @@ function renderReview() {
 
 function renderAll() {
 
+    renderCareers();
+
     renderAttributes();
 
     renderSkills();
 
     renderTalents();
 
+    renderEquipment();
+
     renderPreview();
-
-    renderReview();
-
-}
-
-
-
-/* ============================================================
-   NAVEGAÇÃO
-============================================================ */
-
-function setStep(step) {
-
-    state.step =
-        Math.max(
-            1,
-            Math.min(7, step)
-        );
 
     renderReview();
 
@@ -1487,6 +1737,13 @@ function normalizeLoadedData(loaded) {
                 : [],
 
 
+        selectedEquipment:
+
+            Array.isArray(d.selectedEquipment)
+                ? d.selectedEquipment
+                : [],
+
+
         xp:
             Number(d.xp || 0)
 
@@ -1579,8 +1836,7 @@ function loadCharacter() {
 
         fillInputsFromState();
 
-        $("career").value =
-            state.data.career;
+        renderCareers();
 
         $("characterType").value =
             state.data.characterType;
@@ -1794,6 +2050,9 @@ function setCareer(value) {
         invalidSkill
     ) {
 
+        renderCareers();
+
+
         showToast(
             "Reduza os valores que ultrapassam os limites da nova carreira antes de trocar."
         );
@@ -1809,6 +2068,14 @@ function setCareer(value) {
 
 
     state.data.talent =
+        "";
+
+
+    state.data.selectedEquipment =
+        [];
+
+
+    state.data.gear =
         "";
 
 
@@ -2470,9 +2737,6 @@ async function exportPdf() {
 
     if (alerts.length) {
 
-        setStep(7);
-
-
         showToast(
             "Corrija os alertas antes de exportar."
         );
@@ -2613,71 +2877,6 @@ async function exportPdf() {
 
 
 /* ============================================================
-   VISUALIZAÇÃO EM NOVA ABA
-============================================================ */
-
-function openViewerInNewTab() {
-
-    const data = JSON.parse(JSON.stringify(state.data));
-
-    const win = window.open("", "_blank");
-
-    if (!win) {
-        showToast("O navegador bloqueou a nova aba. Permita pop-ups para este site.");
-        return;
-    }
-
-    const esc = value => String(value ?? "")
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
-
-    const attributeRows = Object.entries(ATTRIBUTES).map(([key, attr]) => `
-        <div class="stat">
-            <span>${esc(attr.name)}</span>
-            <strong>${esc(data.attributes[key])}</strong>
-        </div>
-    `).join("");
-
-    const skillRows = Object.entries(SKILLS).map(([key, skill]) => `
-        <div class="skill">
-            <span>${esc(skill.name)}</span>
-            <strong>${esc(data.skills[key])}</strong>
-        </div>
-    `).join("");
-
-    win.document.write(`<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ficha — ${esc(data.name || "Sem Nome")}</title>
-<style>
-*{box-sizing:border-box}body{margin:0;background:#090a0b;color:#eee;font-family:Arial,sans-serif;padding:28px}.toolbar{max-width:1000px;margin:0 auto 18px;display:flex;gap:10px;justify-content:flex-end}.toolbar button{background:#ff5b16;color:white;border:0;border-radius:8px;padding:10px 16px;font-weight:bold;cursor:pointer}.toolbar button.secondary{background:#202326;border:1px solid #444}.sheet{max-width:1000px;margin:auto;border:1px solid #4a4a4a;border-radius:14px;background:#151718;box-shadow:0 10px 35px #0008;overflow:hidden}.head{padding:26px;border-bottom:1px solid #3a3a3a;background:linear-gradient(135deg,#17191a,#101112)}.eyebrow{color:#ff6a1a;font-weight:bold;letter-spacing:2px;font-size:13px}.head h1{margin:7px 0;font-family:Georgia,serif;font-size:34px}.head p{margin:0;color:#aaa}.section{padding:22px 26px;border-bottom:1px solid #343434}.section:last-child{border-bottom:0}.section h2{margin:0 0 16px;font-family:Georgia,serif;font-size:21px}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.box{border:1px solid #3b3b3b;border-radius:9px;padding:12px;background:#111314}.box small{display:block;color:#888;text-transform:uppercase;font-size:10px;margin-bottom:5px}.box strong{font-size:15px}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.stat,.skill{border:1px solid #3b3b3b;border-radius:9px;padding:12px;background:#111314;display:flex;justify-content:space-between;gap:10px}.stat span,.skill span{color:#bbb}.stat strong,.skill strong{color:#ff6a1a}.skills{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.text{white-space:pre-wrap;color:#ddd;line-height:1.5;min-height:45px}@media(max-width:700px){body{padding:12px}.grid,.stats,.skills{grid-template-columns:1fr}.toolbar{justify-content:stretch}.toolbar button{flex:1}}
-</style>
-</head>
-<body>
-<div class="toolbar"><button class="secondary" onclick="window.close()">← Voltar</button></div>
-<main class="sheet">
-<header class="head"><span class="eyebrow">ALIEN RPG</span><h1>${esc(data.name || "Personagem sem nome")}</h1><p>${esc(data.career || "Carreira não escolhida")} · ${data.characterType === "android" ? "Androide" : "Humano"}</p></header>
-<section class="section"><h2>Identidade</h2><div class="grid">
-<div class="box"><small>Nome</small><strong>${esc(data.name)}</strong></div><div class="box"><small>Carreira</small><strong>${esc(data.career)}</strong></div><div class="box"><small>Tipo</small><strong>${data.characterType === "android" ? "Androide" : "Humano"}</strong></div><div class="box"><small>Idade</small><strong>${esc(data.age)}</strong></div><div class="box"><small>Altura</small><strong>${esc(data.height)}</strong></div><div class="box"><small>Peso</small><strong>${esc(data.weight)}</strong></div></div></section>
-<section class="section"><h2>Atributos</h2><div class="stats">${attributeRows}</div></section>
-<section class="section"><h2>Habilidades</h2><div class="skills">${skillRows}</div></section>
-<section class="section"><h2>Talento</h2><div class="box"><strong>${esc(data.talent || "—")}</strong></div></section>
-<section class="section"><h2>Relacionamentos</h2><div class="grid"><div class="box"><small>Camarada</small><strong>${esc(data.buddy || "—")}</strong></div><div class="box"><small>Rival</small><strong>${esc(data.rival || "—")}</strong></div><div class="box"><small>Meta pessoal</small><strong>${esc(data.goal || "—")}</strong></div></div></section>
-<section class="section"><h2>História e Equipamento</h2><div class="grid"><div class="box"><small>História</small><div class="text">${esc(data.history || "—")}</div></div><div class="box"><small>Equipamento</small><div class="text">${esc(data.gear || "—")}</div></div><div class="box"><small>Armas</small><div class="text">${esc(data.weapons || "—")}</div></div><div class="box"><small>Armadura</small><div class="text">${esc(data.armor || "—")}</div></div></div></section>
-</main>
-</body></html>`);
-
-    win.document.close();
-}
-
-
-
-/* ============================================================
    EVENTOS
 ============================================================ */
 
@@ -2711,47 +2910,40 @@ function bindEvents() {
 
 
     /*
-       Carreira
+       Tipo
     */
 
-    document.addEventListener(
-        "click",
-        event => {
+    $("characterType")
+        .addEventListener(
+            "change",
+            event => {
 
-            const card =
-                event.target.closest(
-                    "[data-career]"
+                setCharacterType(
+                    event.target.value
                 );
 
+            }
+        );
 
-            if (!card)
-                return;
 
 
-            setCareer(
-                card.dataset.career
+    document.addEventListener(
+        "change",
+        event => {
+
+            const select = event.target.closest(
+                ".career-equipment-select"
+            );
+
+            if (!select) return;
+
+            selectEquipment(
+                Number(select.dataset.equipmentGroup),
+                select.value
             );
 
         }
     );
-
-
-
-    /*
-       Tipo
-    */
-
-    const characterType = $("characterType");
-
-    if (characterType) {
-        characterType.addEventListener(
-            "change",
-            event => {
-                setCharacterType(event.target.value);
-            }
-        );
-    }
-
 
 
     /*
@@ -2771,6 +2963,18 @@ function bindEvents() {
             if (!target)
                 return;
 
+
+
+
+            if (target.dataset.career) {
+
+                setCareer(
+                    target.dataset.career
+                );
+
+                return;
+
+            }
 
 
             if (target.dataset.attrMinus) {
@@ -2837,16 +3041,6 @@ function bindEvents() {
             }
 
 
-            if (target.dataset.step) {
-
-                setStep(
-                    Number(
-                        target.dataset.step
-                    )
-                );
-
-            }
-
         }
     );
 
@@ -2857,39 +3051,49 @@ function bindEvents() {
        Salvar
     */
 
-    const btnSalvar = $("btnSalvar");
-    const btnSalvarTopo = $("btnSalvarTopo");
-    const btnCarregar = $("btnCarregar");
-    const btnCarregarTopo = $("btnCarregarTopo");
-    const btnExportar = $("btnExportar");
+    $("btnSalvar")
+        .addEventListener(
+            "click",
+            saveCharacter
+        );
 
-    if (btnSalvar) btnSalvar.addEventListener("click", saveCharacter);
-    if (btnSalvarTopo) btnSalvarTopo.addEventListener("click", saveCharacter);
-    if (btnCarregar) btnCarregar.addEventListener("click", loadCharacter);
-    if (btnCarregarTopo) btnCarregarTopo.addEventListener("click", loadCharacter);
-    if (btnExportar) btnExportar.addEventListener("click", exportPdf);
+
+    $("btnSalvarTopo")
+        .addEventListener(
+            "click",
+            saveCharacter
+        );
+
 
 
     /*
-       Visualizar em nova aba
+       Carregar
     */
 
-    const openViewer = event => {
-        event.preventDefault();
-        event.stopImmediatePropagation();
-        openViewerInNewTab();
-    };
+    $("btnCarregar")
+        .addEventListener(
+            "click",
+            loadCharacter
+        );
 
-    const btnVisualizarFicha = $("btnVisualizarFicha");
-    const btnVisualizarLateral = $("btnVisualizarLateral");
 
-    if (btnVisualizarFicha) {
-        btnVisualizarFicha.addEventListener("click", openViewer, true);
-    }
+    $("btnCarregarTopo")
+        .addEventListener(
+            "click",
+            loadCharacter
+        );
 
-    if (btnVisualizarLateral) {
-        btnVisualizarLateral.addEventListener("click", openViewer, true);
-    }
+
+
+    /*
+       Exportar
+    */
+
+    $("btnExportar")
+        .addEventListener(
+            "click",
+            exportPdf
+        );
 
 
 }
@@ -2963,9 +3167,6 @@ window.AlienFichaAPI = {
 
 function init() {
 
-    renderCareers();
-
-
     fillInputsFromState();
 
 
@@ -2974,8 +3175,6 @@ function init() {
 
     renderAll();
 
-
-    setStep(1);
 
 }
 
