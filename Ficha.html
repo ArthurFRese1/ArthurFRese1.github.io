@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ALIEN RPG — Criador de Ficha</title>
+
+    <link rel="stylesheet" href="Ficha.css">
+</head>
+
+<body>
+
+    <!-- =========================================================
+         CABEÇALHO
+    ========================================================== -->
+
+    <header class="topbar">
+
+        <div class="brand">
+            <span class="brand-icon">◈</span>
+            <span>ALIEN RPG</span>
+        </div>
+
+        <div class="breadcrumb">
+            Ficha
+            <span>/</span>
+            <strong>Criador de Personagem</strong>
+        </div>
+
+        <div class="top-actions">
+
+            <button id="btnCarregar" class="top-button">
+                ↥ Carregar
+            </button>
+
+            <button id="btnSalvar" class="top-button">
+                ▣ Salvar
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- =========================================================
+         BARRA DE ETAPAS
+    ========================================================== -->
+
+    <nav class="steps" id="steps">
+
+        <button class="step active" data-step="0">
+            <span class="step-number">1</span>
+            <span class="step-text">Identidade</span>
+        </button>
+
+        <button class="step" data-step="1">
+            <span class="step-number">2</span>
+            <span class="step-text">Atributos + Espécie</span>
+        </button>
+
+        <button class="step" data-step="2">
+            <span class="step-number">3</span>
+            <span class="step-text">Carreira</span>
+        </button>
+
+        <button class="step" data-step="3">
+            <span class="step-number">4</span>
+            <span class="step-text">Perícias</span>
+        </button>
+
+        <button class="step" data-step="4">
+            <span class="step-number">5</span>
+            <span class="step-text">Talento</span>
+        </button>
+
+        <button class="step" data-step="5">
+            <span class="step-number">6</span>
+            <span class="step-text">Equipamento</span>
+        </button>
+
+        <button class="step" data-step="6">
+            <span class="step-number">7</span>
+            <span class="step-text">Complementos</span>
+        </button>
+
+        <button class="step" data-step="7">
+            <span class="step-number">8</span>
+            <span class="step-text">Revisão Final</span>
+        </button>
+
+    </nav>
+
+
+    <!-- =========================================================
+         ÁREA PRINCIPAL
+    ========================================================== -->
+
+    <main class="layout">
+
+        <!-- =====================================================
+             EDITOR
+        ====================================================== -->
+
+        <section class="editor">
+
+            <div class="editor-header">
+
+                <div>
+                    <span class="section-counter" id="sectionCounter">
+                        ETAPA 1 DE 8
+                    </span>
+
+                    <h1 id="sectionTitle">
+                        Identidade
+                    </h1>
+
+                    <p id="sectionDescription">
+                        Quem é seu personagem?
+                    </p>
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 ETAPA 1 — IDENTIDADE
+            ================================================== -->
+
+            <section class="page active-page" data-page="0">
+
+                <div class="form-section">
+
+                    <div class="section-title">
+                        <span class="section-icon">♙</span>
+
+                        <div>
+                            <h2>Identificação</h2>
+                            <p>As informações básicas do personagem.</p>
+                        </div>
+                    </div>
+
+
+                    <div class="field-grid two">
+
+                        <label class="field">
+                            <span>Nome do personagem</span>
+
+                            <input
+                                type="text"
+                                id="nome"
+                                placeholder="Ex.: Ellen Ripley"
+                            >
+                        </label>
+
+
+                        <label class="field">
+                            <span>Nome do jogador</span>
+
+                            <input
+                                type="text"
+                                id="jogador"
+                                placeholder="Seu nome"
+                            >
+                        </label>
+
+                    </div>
+
+
+                    <label class="field">
+
+                        <span>Descrição rápida</span>
+
+                        <textarea
+                            id="descricao"
+                            rows="4"
+                            placeholder="Uma descrição curta do personagem..."
+                        ></textarea>
+
+                    </label>
+
+                </div>
+
+
+                <div class="form-section">
+
+                    <div class="section-title">
+
+                        <span class="section-icon">♙</span>
+
+                        <div>
+                            <h2>Personalidade</h2>
+                            <p>Você pode completar essas informações depois.</p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="field-grid two">
+
+                        <label class="field">
+                            <span>Meta pessoal</span>
+
+                            <textarea
+                                id="metaPessoal"
+                                rows="4"
+                                placeholder="O que seu personagem deseja alcançar?"
+                            ></textarea>
+                        </label>
+
+
+                        <label class="field">
+                            <span>História</span>
+
+                            <textarea
+                                id="historia"
+                                rows="4"
+                                placeholder="De onde ele veio?"
+                            ></textarea>
+                        </label>
+
+
+                        <label class="field">
+                            <span>Camarada</span>
+
+                            <input
+                                type="text"
+                                id="camarada"
+                                placeholder="Nome do camarada"
+                            >
+                        </label>
+
+
+                        <label class="field">
+                            <span>Rival</span>
+
+                            <input
+                                type="text"
+                                id="rival"
+                                placeholder="Nome do rival"
+                            >
+                        </label>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 ETAPA 2 — ATRIBUTOS
+            ================================================== -->
+
+            <section class="page" data-page="1">
+
+                <div class="form-section">
+
+                    <div class="section-title">
+
+                        <span class="section-icon">◆</span>
+
+                        <div>
+                            <h2>Espécie</h2>
+                            <p>Escolha humano ou androide.</p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="choice-grid">
+
+                        <button
+                            class="choice-card selected"
+                            data-species="humano"
+                        >
+                            <strong>Humano</strong>
+
+                            <span>
+                                Personagem humano normal.
+                            </span>
+                        </button>
+
+
+                        <button
+                            class="choice-card"
+                            data-species="androide"
+                        >
+                            <strong>Androide</strong>
+
+                            <span>
+                                Regras especiais de androide.
+                            </span>
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-section">
+
+                    <div class="section-title">
+
+                        <span class="section-icon">◇</span>
+
+                        <div>
+                            <h2>Atributos</h2>
+
+                            <p>
+                                Distribua os 14 pontos iniciais.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="points-bar">
+
+                        <div>
+                            <span>Pontos utilizados</span>
+
+                            <strong>
+                                <span id="attributeUsed">0</span> / 14
+                            </strong>
+                        </div>
+
+                        <div>
+                            <span>Restantes</span>
+
+                            <strong id="attributeRemaining">
+                                14
+                            </strong>
+                        </div>
+
+                    </div>
+
+
+                    <div class="attribute-grid">
+
+                        <div class="attribute-card">
+
+                            <span>FOR</span>
+
+                            <strong id="attrForcaValue">
+                                2
+                            </strong>
+
+                            <small>Força</small>
+
+                            <div class="counter">
+
+                                <button
+                                    data-attribute="forca"
+                                    data-action="minus"
+                                >
+                                    −
+                                </button>
+
+                                <button
+                                    data-attribute="forca"
+                                    data-action="plus"
+                                >
+                                    +
+                                </button>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="attribute-card">
+
+                            <span>AGI</span>
+
+                            <strong id="attrAgilidadeValue">
+                                2
+                            </strong>
+
+                            <small>Agilidade</small>
+
+                            <div class="counter">
+
+                                <button
+                                    data-attribute="agilidade"
+                                    data-action="minus"
+                                >
+                                    −
+                                </button>
+
+                                <button
+                                    data-attribute="agilidade"
+                                    data-action="plus"
+                                >
+                                    +
+                                </button>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="attribute-card">
+
+                            <span>PER</span>
+
+                            <strong id="attrPerspicaciaValue">
+                                2
+                            </strong>
+
+                            <small>Perspicácia</small>
+
+                            <div class="counter">
+
+                                <button
+                                    data-attribute="perspicacia"
+                                    data-action="minus"
+                                >
+                                    −
+                                </button>
+
+                                <button
+                                    data-attribute="perspicacia"
+                                    data-action="plus"
+                                >
+                                    +
+                                </button>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="attribute-card">
+
+                            <span>EMP</span>
+
+                            <strong id="attrEmpatiaValue">
+                                2
+                            </strong>
+
+                            <small>Empatia</small>
+
+                            <div class="counter">
+
+                                <button
+                                    data-attribute="empatia"
+                                    data-action="minus"
+                                >
+                                    −
+                                </button>
+
+                                <button
+                                    data-attribute="empatia"
+                                    data-action="plus"
+                                >
+                                    +
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <p class="help-text">
+                        Valores iniciais normais ficam entre 2 e 4.
+                        O atributo principal da carreira poderá chegar a 5.
+                    </p>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 ETAPA 3 — CARREIRA
+            ================================================== -->
+
+            <section class="page" data-page="2">
+
+                <div class="form-section">
+
+                    <div class="section-title">
+
+                        <span class="section-icon">▣</span>
+
+                        <div>
+                            <h2>Escolha sua carreira</h2>
+
+                            <p>
+                                Sua carreira define seu atributo principal,
+                                habilidades principais e talentos disponíveis.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        class="career-grid"
+                        id="careerGrid"
+                    ></div>
+
+
+                    <div
+                        class="career-info"
+                        id="careerInfo"
+                    >
+
+                        <div class="empty-state">
+                            Escolha uma carreira para ver suas informações.
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 ETAPA 4 — PERÍCIAS
+            ================================================== -->
+
+            <section class="page" data-page="3">
+
+                <div class="form-section">
+
+                    <div class="section-title">
+
+                        <span class="section-icon">◇</span>
+
+                        <div>
+
+                            <h2>Perícias</h2>
+
+                            <p>
+                                Distribua seus 10 pontos de habilidades.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="points-bar">
+
+                        <div>
+
+                            <span>Pontos utilizados</span>
+
+                            <strong>
+                                <span id="skillUsed">0</span> / 10
+                            </strong>
+
+                        </div>
+
+                        <div>
+
+                            <span>Restantes</span>
+
+                            <strong id="skillRemaining">
+                                10
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        class="skills-list"
+                        id="skillsList"
+                    ></div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 ETAPA 5 — TALENTO
+            ================================================== -->
+
+            <section class="page" data-page="4">
+
+                <div class="form-section">
+
+                    <div class="section-title">
+
+                        <span class="section-icon">✦</span>
+
+                        <div>
+
+                            <h2>Talento</h2>
+
+                            <p>
+                                Escolha um dos talentos oferecidos pela sua carreira.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        class="talent-grid"
+                        id="talentGrid"
+                    ></div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 ETAPA 6 — EQUIPAMENTO
+            ================================================== -->
+
+            <section class="page" data-page="5">
+
+                <div class="form-section">
+
+                    <div class="section-title">
+
+                        <span class="section-icon">▤</span>
+
+                        <div>
+
+                            <h2>Equipamento</h2>
+
+                            <p>
+                                Registre os equipamentos iniciais do personagem.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <label class="field">
+
+                        <span>Equipamento</span>
+
+                        <textarea
+                            id="equipamento"
+                            rows="8"
+                            placeholder="Digite os equipamentos do personagem..."
+                        ></textarea>
+
+                    </label>
+
+
+                    <label class="field">
+
+                        <span>Armas</span>
+
+                        <textarea
+                            id="armas"
+                            rows="6"
+                            placeholder="Armas, munições e informações relevantes..."
+                        ></textarea>
+
+                    </label>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 ETAPA 7 — COMPLEMENTOS
+            ================================================== -->
+
+            <section class="page" data-page="6">
+
+                <div class="form-section">
+
+                    <div class="section-title">
+
+                        <span class="section-icon">▧</span>
+
+                        <div>
+
+                            <h2>Complementos</h2>
+
+                            <p>
+                                Informações adicionais da ficha.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="field-grid two">
+
+                        <label class="field">
+
+                            <span>Aparência</span>
+
+                            <textarea
+                                id="aparencia"
+                                rows="5"
+                                placeholder="Características físicas..."
+                            ></textarea>
+
+                        </label>
+
+
+                        <label class="field">
+
+                            <span>Item emocional</span>
+
+                            <textarea
+                                id="itemEmocional"
+                                rows="5"
+                                placeholder="Item emocional do personagem..."
+                            ></textarea>
+
+                        </label>
+
+
+                        <label class="field">
+
+                            <span>Experiência</span>
+
+                            <input
+                                type="number"
+                                id="experiencia"
+                                value="0"
+                                min="0"
+                            >
+
+                        </label>
+
+
+                        <label class="field">
+
+                            <span>Estresse</span>
+
+                            <input
+                                type="number"
+                                id="estresse"
+                                value="0"
+                                min="0"
+                            >
+
+                        </label>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 ETAPA 8 — REVISÃO
+            ================================================== -->
+
+            <section class="page" data-page="7">
+
+                <div class="form-section">
+
+                    <div class="section-title">
+
+                        <span class="section-icon">✓</span>
+
+                        <div>
+
+                            <h2>Revisão Final</h2>
+
+                            <p>
+                                Confira seu personagem antes de exportar.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        class="review"
+                        id="review"
+                    ></div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 NAVEGAÇÃO
+            ================================================== -->
+
+            <div class="navigation">
+
+                <button
+                    id="btnAnterior"
+                    class="nav-button secondary"
+                >
+                    ← Voltar
+                </button>
+
+
+                <button
+                    id="btnProximo"
+                    class="nav-button primary"
+                >
+                    Próximo →
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             RESUMO LATERAL
+        ====================================================== -->
+
+        <aside class="sidebar">
+
+            <div class="character-card">
+
+                <div class="character-header">
+
+                    <div class="character-avatar">
+                        ♙
+                    </div>
+
+                    <div>
+
+                        <h2 id="previewNome">
+                            Personagem sem nome
+                        </h2>
+
+                        <span id="previewCareer">
+                            Nenhuma carreira
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ESTATÍSTICAS -->
+
+                <div class="mini-stats">
+
+                    <div>
+
+                        <span>VIT</span>
+
+                        <strong id="previewVitality">
+                            2
+                        </strong>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>EST</span>
+
+                        <strong id="previewStress">
+                            0
+                        </strong>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>PE</span>
+
+                        <strong id="previewXP">
+                            0
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ATRIBUTOS -->
+
+                <div class="side-section">
+
+                    <div class="side-title">
+                        ATRIBUTOS
+                    </div>
+
+
+                    <div class="side-attributes">
+
+                        <div>
+                            <span>FOR</span>
+                            <strong id="sideForca">2</strong>
+                        </div>
+
+                        <div>
+                            <span>AGI</span>
+                            <strong id="sideAgilidade">2</strong>
+                        </div>
+
+                        <div>
+                            <span>PER</span>
+                            <strong id="sidePerspicacia">2</strong>
+                        </div>
+
+                        <div>
+                            <span>EMP</span>
+                            <strong id="sideEmpatia">2</strong>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- CARREIRA -->
+
+                <div class="side-section">
+
+                    <div class="side-title">
+                        CARREIRA
+                    </div>
+
+                    <div
+                        id="sideCareer"
+                        class="side-value"
+                    >
+                        Nenhuma escolhida
+                    </div>
+
+                </div>
+
+
+                <!-- TALENTO -->
+
+                <div class="side-section">
+
+                    <div class="side-title">
+                        TALENTO
+                    </div>
+
+                    <div
+                        id="sideTalent"
+                        class="side-value"
+                    >
+                        Nenhum escolhido
+                    </div>
+
+                </div>
+
+
+                <!-- ALERTAS -->
+
+                <div class="side-section">
+
+                    <div class="side-title alert-title">
+                        STATUS
+                    </div>
+
+
+                    <div class="status-box">
+
+                        <div>
+
+                            <strong id="statusPending">
+                                0
+                            </strong>
+
+                            <span>
+                                pendentes
+                            </span>
+
+                        </div>
+
+
+                        <div>
+
+                            <strong id="statusWarnings">
+                                0
+                            </strong>
+
+                            <span>
+                                avisos
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- EXPORTAÇÃO -->
+
+                <button
+                    id="btnExportar"
+                    class="export-button"
+                >
+                    ↓ Baixar PDF
+                </button>
+
+                <small class="export-info">
+                    A ficha exportada continuará editável.
+                </small>
+
+            </div>
+
+        </aside>
+
+    </main>
+
+
+    <script src="Ficha.js"></script>
+
+</body>
+</html>
