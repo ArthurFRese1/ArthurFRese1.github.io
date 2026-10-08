@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALIEN RPG — Criador de Ficha</title>
+    <link rel="stylesheet" href="Ficha.css">
+</head>
+<body>
+
+<header class="topbar">
+
+    <div class="brand">
+        <span class="brand-mark">◆</span>
+
+        <div>
+            <span class="eyebrow">ALIEN RPG</span>
+            <h1>Criador de Ficha</h1>
+        </div>
+    </div>
+
+    <div class="top-actions">
+        <button id="btnCarregar" class="btn secondary" type="button">
+            ↥ Carregar
+        </button>
+
+        <button id="btnSalvar" class="btn secondary" type="button">
+            ▣ Salvar
+        </button>
+    </div>
+
+</header>
+
+
+
+
+
+<main class="app-layout">
+
+    <section class="editor-area">
+
+        <div class="page-heading">
+
+            <div>
+                <span class="orange-label">
+                    CRIADOR DE FICHA
+                </span>
+
+                <h2 id="stepTitle">
+                    Ficha ALIEN RPG
+                </h2>
+            </div>
+
+            <div class="page-actions">
+
+                <button id="btnSalvarTopo" class="mini-btn" type="button">
+                    ▣ Salvar
+                </button>
+
+                <button id="btnCarregarTopo" class="mini-btn" type="button">
+                    ↥ Carregar
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- =====================================================
+             ETAPA 1
+        ====================================================== -->
+
+        <div class="step-panel active" data-panel="1">
+
+            <section class="card">
+
+                <div class="section-heading">
+
+                    <div class="section-icon">
+                        ♙
+                    </div>
+
+                    <div>
+                        <h3>Identificação</h3>
+                        <p>Quem é seu personagem?</p>
+                    </div>
+
+                </div>
+
+
+                <div class="form-grid two">
+
+                    <label>
+                        Nome do personagem
+                        <span class="required">*</span>
+
+                        <input
+                            id="name"
+                            type="text"
+                            maxlength="80"
+                            placeholder="Ex.: Amanda Ripley"
+                        >
+                    </label>
+
+
+
+                    <label>
+                        Tipo de personagem
+
+                        <select id="characterType">
+
+                            <option value="human">
+                                Humano
+                            </option>
+
+                            <option value="android">
+                                Androide
+                            </option>
+
+                        </select>
+
+                    </label>
+
+
+                    <label>
+                        Pontos de experiência
+
+                        <input
+                            id="xp"
+                            type="number"
+                            min="0"
+                            max="999"
+                            value="0"
+                        >
+                    </label>
+
+                </div>
+
+            </section>
+
+
+            <section class="card">
+
+                <div class="section-heading">
+
+                    <div class="section-icon">
+                        ◉
+                    </div>
+
+                    <div>
+                        <h3>Aparência</h3>
+                        <p>Detalhes físicos e descrição.</p>
+                    </div>
+
+                </div>
+
+
+                <div class="form-grid three">
+
+                    <label>
+                        Idade
+
+                        <input
+                            id="age"
+                            type="text"
+                            placeholder="Ex.: 32"
+                        >
+                    </label>
+
+
+                    <label>
+                        Altura
+
+                        <input
+                            id="height"
+                            type="text"
+                            placeholder="Ex.: 1,78 m"
+                        >
+                    </label>
+
+
+                    <label>
+                        Peso
+
+                        <input
+                            id="weight"
+                            type="text"
+                            placeholder="Ex.: 75 kg"
+                        >
+                    </label>
+
+
+                    <label>
+                        Olhos
+
+                        <input
+                            id="eyes"
+                            type="text"
+                            placeholder="Ex.: castanhos"
+                        >
+                    </label>
+
+
+                    <label>
+                        Pele
+
+                        <input
+                            id="skin"
+                            type="text"
+                            placeholder="Ex.: clara"
+                        >
+                    </label>
+
+
+                    <label>
+                        Cabelos
+
+                        <input
+                            id="hair"
+                            type="text"
+                            placeholder="Ex.: pretos"
+                        >
+                    </label>
+
+                </div>
+
+
+                <label>
+                    Descrição
+
+                    <textarea
+                        id="appearance"
+                        rows="4"
+                        placeholder="Características, cicatrizes, roupas, detalhes marcantes..."
+                    ></textarea>
+
+                </label>
+
+            </section>
+
+
+            <section class="card">
+
+                <div class="section-heading">
+
+                    <div class="section-icon">
+                        ♡
+                    </div>
+
+                    <div>
+                        <h3>Relacionamentos e meta</h3>
+                        <p>Informações que acompanham o personagem.</p>
+                    </div>
+
+                </div>
+
+
+                <div class="form-grid two">
+
+                    <label>
+                        Camarada
+
+                        <input
+                            id="buddy"
+                            type="text"
+                        >
+                    </label>
+
+
+                    <label>
+                        Rival
+
+                        <input
+                            id="rival"
+                            type="text"
+                        >
+                    </label>
+
+
+                    <label class="full">
+                        Meta pessoal
+
+                        <textarea
+                            id="goal"
+                            rows="4"
+                            placeholder="O que seu personagem quer alcançar?"
+                        ></textarea>
+
+                    </label>
+
+                </div>
+
+            </section>
+
+        </div>
+
+
+        <!-- =====================================================
+             ETAPA 2
+        ====================================================== -->
+
+        <div class="step-panel" data-panel="2">
+
+    <section class="card career-selection-card">
+
+        <div class="section-heading">
+            <div class="section-icon">◆</div>
+            <div>
+                <h3>Escolha sua carreira</h3>
+                <p>Selecione a carreira do seu personagem. Ela define o atributo principal, habilidades e talentos disponíveis.</p>
+            </div>
+        </div>
+
+        <div id="careers" class="career-grid"></div>
+
+        <div id="careerSelectedInfo" class="info-box career-selected-info">
+            Nenhuma carreira selecionada.
+        </div>
+
+    </section>
+
+</div>
+
+<!-- =====================================================
+     ETAPA 3 — ATRIBUTOS
+====================================================== -->
+
+<div class="step-panel" data-panel="3">
+
+            <section class="card">
+
+                <div class="card-topline">
+
+                    <div>
+
+                        <span class="orange-label">
+                            ATRIBUTOS INICIAIS
+                        </span>
+
+                        <h3>
+                            Distribua os 14 pontos
+                        </h3>
+
+                    </div>
+
+                    <div
+                        id="attributeCounter"
+                        class="counter"
+                    >
+                        8 / 14
+                    </div>
+
+                </div>
+
+
+                <p class="rule">
+                    Na criação de campanha, cada atributo normalmente
+                    fica entre 2 e 4. O atributo principal da carreira
+                    pode chegar a 5. Androides recebem seus bônus depois
+                    da distribuição.
+                </p>
+
+
+                <div
+                    id="careerMainAttribute"
+                    class="info-box"
+                >
+                    Escolha uma carreira para saber qual é o atributo principal.
+                </div>
+
+
+                <div
+                    id="attributes"
+                    class="attribute-grid"
+                ></div>
+
+
+                <div
+                    id="androidBonus"
+                    class="android-bonus hidden"
+                >
+
+                    <div>
+
+                        <strong>
+                            Bônus de androide
+                        </strong>
+
+                        <span>
+                            Escolha dois atributos para receber +3 após
+                            os 14 pontos.
+                        </span>
+
+                    </div>
+
+
+                    <div
+                        id="androidChoices"
+                        class="android-choices"
+                    ></div>
+
+                </div>
+
+            </section>
+
+        </div>
+
+
+        <!-- =====================================================
+             ETAPA 4 — HABILIDADES
+        ====================================================== -->
+
+        <div class="step-panel" data-panel="4">
+
+            <section class="card">
+
+                <div class="card-topline">
+
+                    <div>
+
+                        <span class="orange-label">
+                            HABILIDADES
+                        </span>
+
+                        <h3>
+                            Distribua os 10 pontos
+                        </h3>
+
+                    </div>
+
+                    <div
+                        id="skillCounter"
+                        class="counter"
+                    >
+                        0 / 10
+                    </div>
+
+                </div>
+
+
+                <p class="rule">
+                    Habilidades principais da carreira podem receber
+                    até 3 pontos na criação. As demais podem receber
+                    no máximo 1.
+                </p>
+
+
+                <div
+                    id="careerSkillsInfo"
+                    class="info-box"
+                >
+                    Escolha uma carreira para destacar suas habilidades principais.
+                </div>
+
+
+                <div
+                    id="skills"
+                    class="skills-grid"
+                ></div>
+
+            </section>
+
+        </div>
+
+
+        <!-- =====================================================
+             ETAPA 5 — TALENTO
+        ====================================================== -->
+
+        <div class="step-panel" data-panel="5">
+
+            <section class="card">
+
+                <div class="section-heading">
+
+                    <div class="section-icon">
+                        ★
+                    </div>
+
+                    <div>
+                        <h3>Talento inicial</h3>
+                        <p>
+                            Sua carreira oferece três talentos.
+                            Escolha um.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div
+                    id="talents"
+                    class="talent-grid empty"
+                >
+                    Escolha uma carreira para ver os talentos disponíveis.
+                </div>
+
+            </section>
+
+        </div>
+
+
+        <!-- =====================================================
+             ETAPA 6 — COMPLEMENTOS
+        ====================================================== -->
+
+        <div class="step-panel" data-panel="6">
+
+            <section class="card">
+
+                <div class="section-heading">
+
+                    <div class="section-icon">
+                        ▤
+                    </div>
+
+                    <div>
+                        <h3>Complementos</h3>
+                        <p>
+                            História, equipamento e condições da ficha.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="form-grid two">
+
+                    <label>
+                        História
+                        <span class="optional">opcional</span>
+
+                        <textarea
+                            id="history"
+                            rows="7"
+                            placeholder="De onde veio? O que aconteceu até aqui?"
+                        ></textarea>
+
+                    </label>
+
+
+                    <label>
+                        Item emocional
+                        <span class="optional">opcional</span>
+
+                        <textarea
+                            id="emotionalItem"
+                            rows="7"
+                            placeholder="Objeto importante para o personagem..."
+                        ></textarea>
+
+                    </label>
+
+
+                    <label>
+                        Equipamento
+                        <span class="optional">opcional</span>
+
+                        <textarea
+                            id="gear"
+                            rows="8"
+                            placeholder="Um item por linha..."
+                        ></textarea>
+
+                    </label>
+
+
+                    <label>
+                        Armas
+                        <span class="optional">opcional</span>
+
+                        <textarea
+                            id="weapons"
+                            rows="8"
+                            placeholder="Uma arma por linha..."
+                        ></textarea>
+
+                    </label>
+
+
+                    <label>
+                        Armadura
+                        <span class="optional">opcional</span>
+
+                        <input
+                            id="armor"
+                            type="text"
+                            placeholder="Ex.: Armadura Pessoal M3"
+                        >
+
+                    </label>
+
+
+                    <label>
+                        Itens minúsculos
+                        <span class="optional">opcional</span>
+
+                        <textarea
+                            id="tinyItems"
+                            rows="3"
+                        ></textarea>
+
+                    </label>
+
+                </div>
+
+            </section>
+
+        </div>
+
+
+        <!-- =====================================================
+             ETAPA 7 — REVISÃO
+        ====================================================== -->
+
+        <div class="step-panel" data-panel="7">
+
+            <section class="card review-card">
+
+                <div class="section-heading">
+
+                    <div class="section-icon">
+                        ✓
+                    </div>
+
+                    <div>
+                        <h3>Revisão final</h3>
+                        <p>
+                            Confira os dados antes de exportar.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div
+                    id="reviewWarnings"
+                    class="warnings"
+                ></div>
+
+
+                <div class="review-grid">
+
+                    <div>
+                        <small>PERSONAGEM</small>
+                        <strong id="reviewName">—</strong>
+                    </div>
+
+                    <div>
+                        <small>CARREIRA</small>
+                        <strong id="reviewCareer">—</strong>
+                    </div>
+
+                    <div>
+                        <small>ATRIBUTOS</small>
+                        <strong id="reviewAttributes">—</strong>
+                    </div>
+
+                    <div>
+                        <small>HABILIDADES</small>
+                        <strong id="reviewSkills">—</strong>
+                    </div>
+
+                    <div>
+                        <small>TALENTO</small>
+                        <strong id="reviewTalent">—</strong>
+                    </div>
+
+                </div>
+
+
+                <button
+                    id="btnVisualizarFicha"
+                    class="btn secondary full-width"
+                    type="button"
+                >
+                    ◉ Visualizar ficha completa
+                </button>
+
+
+                <button
+                    id="btnExportar"
+                    class="export-btn"
+                    type="button"
+                >
+                    ↓ Baixar fichaAlien - personagem.pdf
+                </button>
+
+
+                <p class="export-note">
+                    O arquivo original Ficha.pdf não será alterado.
+                    A exportação cria uma cópia separada e mantém os
+                    campos do PDF editáveis.
+                </p>
+
+            </section>
+
+        </div>
+
+
+
+
+    </section>
+
+
+    <!-- =========================================================
+         PRÉ-VISUALIZAÇÃO
+    ========================================================== -->
+
+    <aside class="preview-panel">
+
+        <div class="preview-head">
+
+            <div>
+
+                <span class="eyebrow">
+                    PRÉ-VISUALIZAÇÃO
+                </span>
+
+                <h2>
+                    Ficha
+                </h2>
+
+            </div>
+
+            <span
+                id="status"
+                class="status"
+            >
+                RASCUNHO
+            </span>
+
+        </div>
+
+
+        <div class="preview-sheet">
+
+            <div class="preview-brand">
+                ALIEN RPG
+            </div>
+
+
+            <div
+                id="pName"
+                class="preview-name"
+            >
+                Personagem sem nome
+            </div>
+
+
+            <div
+                id="pCareer"
+                class="preview-career"
+            >
+                Escolha uma carreira
+            </div>
+
+
+            <div class="mini-stats">
+
+                <div>
+                    <small>VIT</small>
+                    <b id="pHealth">0</b>
+                </div>
+
+                <div>
+                    <small>EST</small>
+                    <b id="pStress">0</b>
+                </div>
+
+                <div>
+                    <small>XP</small>
+                    <b id="pXp">0</b>
+                </div>
+
+                <div>
+                    <small>TIPO</small>
+                    <b id="pType">HUM</b>
+                </div>
+
+            </div>
+
+
+            <div class="preview-section">
+
+                <h4>
+                    ATRIBUTOS
+                </h4>
+
+                <div
+                    id="pAttributes"
+                    class="preview-stats"
+                ></div>
+
+            </div>
+
+
+            <div class="preview-section">
+
+                <h4>
+                    RESISTÊNCIAS
+                </h4>
+
+                <div
+                    id="pResistances"
+                    class="resistance-grid"
+                ></div>
+
+            </div>
+
+
+            <div class="preview-section">
+
+                <h4>
+                    HABILIDADES
+                </h4>
+
+                <div
+                    id="pSkills"
+                    class="preview-skills"
+                ></div>
+
+            </div>
+
+
+            <div class="preview-section">
+
+                <h4>
+                    TALENTO
+                </h4>
+
+                <div
+                    id="pTalent"
+                    class="preview-text"
+                >
+                    Nenhum selecionado
+                </div>
+
+            </div>
+
+
+            <div class="preview-section">
+
+                <h4>
+                    RELACIONAMENTOS
+                </h4>
+
+                <div class="preview-row">
+                    <span>Camarada</span>
+                    <b id="pBuddy">—</b>
+                </div>
+
+                <div class="preview-row">
+                    <span>Rival</span>
+                    <b id="pRival">—</b>
+                </div>
+
+            </div>
+
+
+            <div class="preview-section">
+
+                <h4>
+                    META PESSOAL
+                </h4>
+
+                <p id="pGoal">
+                    —
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="alerts">
+
+            <div class="alerts-head">
+
+                <strong>
+                    Alertas
+                </strong>
+
+                <span id="alertCount">
+                    0
+                </span>
+
+            </div>
+
+
+            <div id="alertsList"></div>
+
+        </div>
+
+
+        <button
+            id="btnVisualizarLateral"
+            class="export-btn lateral-export"
+            type="button"
+        >
+            ◉ Visualizar ficha
+        </button>
+
+    </aside>
+
+</main>
+
+
+<!-- =========================================================
+     VISUALIZAÇÃO FINAL DA FICHA
+========================================================= -->
+
+<div
+    id="fichaViewer"
+    class="ficha-viewer"
+    aria-hidden="true"
+>
+    <div class="ficha-viewer-backdrop" data-close-viewer></div>
+
+    <section class="ficha-viewer-window" role="dialog" aria-modal="true" aria-labelledby="viewerTitle">
+
+        <header class="ficha-viewer-header">
+            <div>
+                <span class="eyebrow">FICHA FINAL</span>
+                <h2 id="viewerTitle">Ficha do personagem</h2>
+                <p>Você pode editar os campos diretamente nesta visualização.</p>
+            </div>
+
+            <button
+                id="btnFecharFicha"
+                class="btn secondary"
+                type="button"
+                data-close-viewer
+            >
+                ✕ Fechar
+            </button>
+        </header>
+
+        <div id="fichaViewerContent" class="ficha-viewer-content"></div>
+
+        <footer class="ficha-viewer-footer">
+            <span>As alterações são aplicadas à ficha atual.</span>
+            <button id="btnSalvarViewer" class="btn primary" type="button">
+                ▣ Salvar alterações
+            </button>
+        </footer>
+
+    </section>
+</div>
+
+
+<input
+    id="pdfPicker"
+    type="file"
+    accept="application/pdf"
+    hidden
+>
+
+
+<div
+    id="toast"
+    class="toast"
+    role="status"
+></div>
+
+
+<!-- Biblioteca usada somente para preencher o PDF original -->
+<script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+
+<script src="BancoDados.js"></script>
+<script src="Visualizacao.js"></script>
+<script src="Ficha.js"></script>
+
+</body>
+</html>
